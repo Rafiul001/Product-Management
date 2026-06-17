@@ -1,0 +1,156 @@
+@import "tailwindcss";
+@import "@heroui/react/styles";
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+@import "@heroui/styles";
+
+@theme {
+  /* Primary — Blue */
+  --color-primary-50: #f0f9ff;
+  --color-primary-100: #e0f4fd;
+  --color-primary-200: #bae8fb;
+  --color-primary-300: #7dd5f7;
+  --color-primary-400: #38bef2;
+  --color-primary-500: #0ea4e3;
+  --color-primary-600: #008ecc;
+  --color-primary-700: #0270a1;
+  --color-primary-800: #065b82;
+  --color-primary-900: #0a4d6e;
+  --color-primary: var(--color-primary-600);
+
+  /* Secondary — Violet */
+  --color-secondary-50: #f5f3ff;
+  --color-secondary-100: #ede9fe;
+  --color-secondary-200: #ddd6fe;
+  --color-secondary-300: #c4b5fd;
+  --color-secondary-400: #a78bfa;
+  --color-secondary-500: #8b5cf6;
+  --color-secondary-600: #7c3aed;
+  --color-secondary-700: #6d28d9;
+  --color-secondary-800: #5b21b6;
+  --color-secondary-900: #4c1d95;
+  --color-secondary: var(--color-secondary-600);
+
+  /* Danger — Red */
+  --color-danger-50: #fef2f2;
+  --color-danger-100: #fee2e2;
+  --color-danger-200: #fecaca;
+  --color-danger-300: #fca5a5;
+  --color-danger-400: #f87171;
+  --color-danger-500: #ef4444;
+  --color-danger-600: #dc2626;
+  --color-danger-700: #b91c1c;
+  --color-danger-800: #991b1b;
+  --color-danger-900: #7f1d1d;
+  --color-danger: var(--color-danger-500);
+
+  /* Success — Green */
+  --color-success-50: #f0fdf4;
+  --color-success-100: #dcfce7;
+  --color-success-200: #bbf7d0;
+  --color-success-300: #86efac;
+  --color-success-400: #4ade80;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+  --color-success-700: #15803d;
+  --color-success-800: #166534;
+  --color-success-900: #14532d;
+  --color-success: var(--color-success-500);
+
+  /* Warning — Amber */
+  --color-warning-50: #fffbeb;
+  --color-warning-100: #fef3c7;
+  --color-warning-200: #fde68a;
+  --color-warning-300: #fcd34d;
+  --color-warning-400: #fbbf24;
+  --color-warning-500: #f59e0b;
+  --color-warning-600: #d97706;
+  --color-warning-700: #b45309;
+  --color-warning-800: #92400e;
+  --color-warning-900: #78350f;
+  --color-warning: var(--color-warning-500);
+
+  /* Gray — Neutral */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  --color-gray: var(--color-gray-500);
+}
+
+/* ── HeroUI button color overrides ──────────────────────────── */
+:root {
+  /* Primary button (variant="primary") */
+  --accent: #008ecc;
+  --accent-foreground: #ffffff;
+
+  /* Secondary / ghost / outline button */
+  --default: #f3f4f6;
+  --default-foreground: #374151;
+  --default-hover: #e5e7eb;
+
+  /* Danger button (variant="danger" | "danger-soft") */
+  --danger: #ef4444;
+  --danger-foreground: #ffffff;
+  --danger-soft: #fee2e2;
+  --danger-soft-foreground: #b91c1c;
+  --danger-soft-hover: #fecaca;
+
+  /* Success */
+  --success: #22c55e;
+  --success-foreground: #ffffff;
+
+  /* Warning */
+  --warning: #f59e0b;
+  --warning-foreground: #ffffff;
+}
+
+@layer components {
+  .table-root {
+    @apply relative grid w-full overflow-clip;
+  }
+
+  .table__header {
+    @apply bg-gray-100;
+  }
+
+  .table__column {
+    @apply px-4 py-2.5 text-left text-xs font-medium text-gray-600;
+  }
+
+  .table__column:not(:first-child):not(:last-child),
+  .table__cell:not(:first-child):not(:last-child) {
+    @apply text-center;
+  }
+
+  .table__row {
+    @apply bg-white border-b border-gray-200;
+  }
+
+  .table__cell {
+    @apply px-4 py-3 text-sm;
+  }
+
+  .table__footer {
+    @apply flex items-center px-4 py-2.5;
+  }
+
+  .button {
+    @apply rounded-md;
+  }
+
+  [data-slot="modal-dialog"] {
+    @apply border border-gray-200 rounded-md;
+  }
+
+  [data-slot="modal-body"] {
+    @apply py-2 px-1;
+  }
+}

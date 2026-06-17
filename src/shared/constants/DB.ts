@@ -1,0 +1,16 @@
+export const DB = {
+  USER: "user",
+  ADMIN: "admin",
+  CATEGORY: "category",
+  SUB_CATEGORY: "sub_category",
+  ORDER: "order",
+  PRODUCT: "product",
+  STOCK_ENTRY: "stock_entry",
+  CART: "cart",
+  BANNER: "banner",
+  SESSION: "session",
+  REVIEW: "review",
+  OFFER: "offer",
+  NEW_ARRIVAL: "new_arrival",
+  CRON_SETTINGS: "cron_settings",
+} as const;

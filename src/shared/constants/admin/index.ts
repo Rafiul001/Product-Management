@@ -1,0 +1,4 @@
+export const ADMIN_TYPES = {
+  SUPER_ADMIN: "SUPER_ADMIN",
+  SECONDARY_ADMIN: "SECONDARY_ADMIN",
+} as const;
