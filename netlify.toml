@@ -2,12 +2,17 @@
 # Docs: https://docs.netlify.com/configure-builds/file-based-configuration/
 #
 # The client lives in src/client of this monorepo, so `base` points there.
-# The build still resolves the `@shared` alias (../shared) because Netlify
-# checks out the whole repository before building.
+# The build resolves the `@shared` alias (../shared) because Netlify checks out
+# the whole repository before building.
+#
+# The client imports a few shared modules (@shared/models/* -> mongoose types,
+# @shared/validators/* -> zod) whose packages live in the ROOT package.json.
+# Netlify only auto-installs deps in `base` (src/client), so the command also
+# installs the root deps (`--prefix ../..`) to make those imports resolvable.
 
 [build]
   base = "src/client"
-  command = "npm run build"
+  command = "npm install --prefix ../.. && npm run build"
   publish = "dist" # relative to `base` -> src/client/dist
 
 [build.environment]
