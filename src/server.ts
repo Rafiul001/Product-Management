@@ -17,6 +17,13 @@ import { startRefundCron } from "./cron/refundCron.js";
 const app = express();
 const port = config.PORT;
 
+// Render (and most PaaS) terminate TLS at a reverse proxy and forward over http.
+// Trusting the proxy lets Express see the original https protocol so that
+// `secure` cookies are honoured and req.ip reflects the real client.
+if (config.IS_PRODUCTION) {
+  app.set("trust proxy", 1);
+}
+
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -1,0 +1,25 @@
+# Netlify config for the Vite + React client.
+# Docs: https://docs.netlify.com/configure-builds/file-based-configuration/
+#
+# The client lives in src/client of this monorepo, so `base` points there.
+# The build still resolves the `@shared` alias (../shared) because Netlify
+# checks out the whole repository before building.
+
+[build]
+  base = "src/client"
+  command = "npm run build"
+  publish = "dist" # relative to `base` -> src/client/dist
+
+[build.environment]
+  NODE_VERSION = "22.11.0"
+  # VITE_API_HOST_NAME is read by the client at BUILD time. Set it here OR (better)
+  # in Site settings -> Environment variables in the Netlify dashboard so it is not
+  # committed. It must be your Render API origin, with NO trailing slash, e.g.:
+  #   VITE_API_HOST_NAME = "https://product-management-api.onrender.com"
+
+# SPA fallback: react-router handles client-side routing, so every unknown path
+# must serve index.html instead of returning a 404.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

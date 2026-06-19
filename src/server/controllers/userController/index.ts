@@ -192,12 +192,7 @@ export const loginUserController = asyncController<
     exp: Math.floor(now / 1000) + config.REFRESH_TOKEN_MAX_AGE / 1000,
   });
 
-  const cookieOptions = {
-    httpOnly: true,
-    secure: config.NODE_ENV === "production",
-    sameSite: "strict" as const,
-    path: "/",
-  };
+  const cookieOptions = config.COOKIE_OPTIONS;
 
   res.cookie("token", accessToken, {
     ...cookieOptions,
@@ -230,10 +225,7 @@ export const refreshAccessTokenController = asyncController<ValidatedRequest>(
     });
 
     res.cookie("token", newAccessToken, {
-      httpOnly: true,
-      secure: config.NODE_ENV === "production",
-      sameSite: "strict",
-      path: "/",
+      ...config.COOKIE_OPTIONS,
       maxAge: config.ACCESS_TOKEN_MAX_AGE,
     });
 
@@ -378,12 +370,7 @@ export const updateUserAdminController = asyncController<
 
 export const logoutUserController = asyncController<ValidatedRequest>(
   async (req, res) => {
-    const cookieOptions = {
-      httpOnly: true,
-      secure: config.NODE_ENV === "production",
-      sameSite: "strict" as const,
-      path: "/",
-    };
+    const cookieOptions = config.COOKIE_OPTIONS;
 
     res.clearCookie("token", cookieOptions);
     res.clearCookie("refreshToken", cookieOptions);

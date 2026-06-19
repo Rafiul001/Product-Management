@@ -42,11 +42,8 @@ export const adminLoginController = asyncController<
   });
 
   res.cookie("token", token, {
-    httpOnly: true,
-    secure: config.NODE_ENV === "production",
+    ...config.COOKIE_OPTIONS,
     maxAge: config.COOKIE_MAX_AGE,
-    sameSite: "strict",
-    path: "/",
   });
 
   return ok(res, "Successfully logged in");
@@ -71,12 +68,7 @@ export const adminLogoutController = asyncController<ValidatedRequest>(
     const sessionId = req.sessionId;
     if (sessionId) await SessionModel.deleteOne({ sessionId: sessionId });
 
-    res.clearCookie("token", {
-      httpOnly: true,
-      secure: config.NODE_ENV === "production",
-      sameSite: "strict",
-      path: "/",
-    });
+    res.clearCookie("token", config.COOKIE_OPTIONS);
 
     return ok(res, "Successfully logged out");
   },

@@ -1,0 +1,68 @@
+# Render Blueprint for the Express/Mongoose API server.
+# Docs: https://render.com/docs/blueprint-spec
+#
+# Deploy: push this repo to GitHub, then in the Render dashboard choose
+# "New +" -> "Blueprint" and point it at this repo. Render reads this file,
+# creates the service, and prompts you for every `sync: false` secret below.
+services:
+  - type: web
+    name: product-management-api
+    runtime: node
+    plan: free
+    region: oregon # change to your nearest region (e.g. frankfurt, singapore)
+    branch: main
+    autoDeploy: true
+    # devDependencies (typescript, tsc-alias) are needed to compile, so a plain
+    # `npm install` is used rather than `npm ci --omit=dev`.
+    buildCommand: npm install && npm run build:server
+    startCommand: npm run start:server
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 22.11.0
+      - key: NODE_ENV
+        value: production
+
+      # --- Database (MongoDB Atlas) ---
+      # DB_CONNECTION_URL = your full Atlas SRV string, e.g.
+      #   mongodb+srv://<user>:<password>@<cluster>.mongodb.net/?appName=<app>
+      # The database name is supplied separately via DATABASE (below), so the
+      # path part of the URI is optional.
+      - key: DB_CONNECTION_URL
+        sync: false
+      - key: DATABASE
+        value: nexvolt
+
+      # --- URLs ---
+      # CLIENT_URL must exactly match your Netlify site origin (used for CORS).
+      # SERVER_URL is this service's own public URL (https://<name>.onrender.com).
+      - key: CLIENT_URL
+        sync: false
+      - key: SERVER_URL
+        sync: false
+
+      # --- Auth secrets ---
+      - key: JSON_WEB_TOKEN_SECRET
+        sync: false
+      - key: REFRESH_TOKEN_SECRET
+        sync: false
+
+      # --- Email (Gmail app password) ---
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+
+      # --- File uploads (memory storage -> Cloudinary; dir is just for static serve) ---
+      - key: UPLOAD_DIR
+        value: uploads/
+      - key: CLOUDINARY_URL
+        sync: false
+
+      # --- SSLCommerz payment gateway ---
+      - key: SSL_STORE_ID
+        sync: false
+      - key: SSL_STORE_PASSWORD
+        sync: false
+      - key: SSL_IS_LIVE
+        value: "false"
