@@ -74,12 +74,12 @@ const ProductItem: React.FC<{ product: PopulatedProduct }> = ({ product }) => {
       )}
 
       {/* Image area */}
-      <div className="relative flex items-center justify-center bg-white min-h-44">
+      <div className="relative flex items-center justify-center bg-white h-44 overflow-hidden">
         {product.productImage ? (
           <img
             src={product.productImage}
             alt={product.productName}
-            className="h-36 w-full object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-300"
+            className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
           <div className="flex flex-col items-center justify-center gap-2 text-gray-200 h-36">
