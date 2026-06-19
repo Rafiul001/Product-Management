@@ -24,12 +24,19 @@ if (config.IS_PRODUCTION) {
   app.set("trust proxy", 1);
 }
 
+// CLIENT_URL may be a single origin or a comma-separated list. Trailing slashes
+// are stripped because the browser's Origin header never includes one, so an
+// allowlist entry like "https://site.app/" would otherwise never match.
+const allowedOrigins = config.CLIENT_URL.split(",")
+  .map((origin) => origin.trim().replace(/\/+$/, ""))
+  .filter(Boolean);
+
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: [config.CLIENT_URL],
+    origin: allowedOrigins,
     credentials: true,
   }),
 );
