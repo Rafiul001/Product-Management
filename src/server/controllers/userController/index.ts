@@ -8,6 +8,7 @@ import {
   conflict,
   notFound,
   ok,
+  serverError,
   tooManyRequest,
   unauthorized,
 } from "@shared/utils/apiResponse.js";
@@ -151,7 +152,12 @@ export const resendVerificationEmailController = asyncController<
   existingUser.otpExpiredAt = new Date(Date.now() + config.OTP_EXPIRATION_TIME);
   await existingUser.save();
 
-  await transporter.sendMail(otpMail(userEmail, otp));
+  try {
+    await transporter.sendMail(otpMail(userEmail, otp));
+  } catch (emailError) {
+    console.error("Failed to send OTP email:", emailError);
+    return serverError(res, "Failed to send OTP email. Try again.");
+  }
 
   return ok(res, "Otp send successfully");
 });

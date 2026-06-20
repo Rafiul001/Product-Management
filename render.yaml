@@ -48,10 +48,12 @@ services:
       - key: REFRESH_TOKEN_SECRET
         sync: false
 
-      # --- Email (Gmail app password) ---
-      - key: EMAIL_USER
+      # --- Email (Resend HTTPS API — Render blocks outbound SMTP, so Gmail/SMTP
+      # won't work here. Get a key at resend.com and verify a sending domain.) ---
+      - key: RESEND_API_KEY
         sync: false
-      - key: EMAIL_PASS
+      # Verified sender, e.g. "E-commerce <noreply@yourdomain.com>"
+      - key: EMAIL_FROM
         sync: false
 
       # --- File uploads (memory storage -> Cloudinary; dir is just for static serve) ---

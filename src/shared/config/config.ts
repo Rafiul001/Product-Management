@@ -47,9 +47,11 @@ const CLIENT_URL = getEnv("CLIENT_URL");
 // File upload directory
 const UPLOAD_DIR = getEnv("UPLOAD_DIR");
 
-// Email credentials
-const EMAIL_USER = getEnv("EMAIL_USER");
-const EMAIL_PASS = getEnv("EMAIL_PASS");
+// Email (Resend HTTP API — works on hosts that block outbound SMTP, e.g. Render)
+const RESEND_API_KEY = getEnv("RESEND_API_KEY");
+// Verified sender, e.g. `"E-commerce <noreply@yourdomain.com>"`. Must be a domain
+// verified in Resend (or `onboarding@resend.dev` for testing to your own address).
+const EMAIL_FROM = getEnv("EMAIL_FROM");
 
 // SSLCommerz credentials
 const SSL_STORE_ID = getEnv("SSL_STORE_ID");
@@ -73,8 +75,8 @@ const config = {
   ACCESS_TOKEN_MAX_AGE,
   REFRESH_TOKEN_MAX_AGE,
   OTP_EXPIRATION_TIME,
-  EMAIL_USER,
-  EMAIL_PASS,
+  RESEND_API_KEY,
+  EMAIL_FROM,
   SSL_STORE_ID,
   SSL_STORE_PASSWORD,
   SSL_IS_LIVE,

@@ -1,5 +1,4 @@
 export const otpMail = (email: string, otp: string) => ({
-  from: `"E-commerce" <rafiul13062001@gmail.com>`,
   to: email,
   subject: "Your OTP Verification Code",
   html: `
