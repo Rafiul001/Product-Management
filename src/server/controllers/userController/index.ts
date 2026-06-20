@@ -156,7 +156,9 @@ export const resendVerificationEmailController = asyncController<
     await transporter.sendMail(otpMail(userEmail, otp));
   } catch (emailError) {
     console.error("Failed to send OTP email:", emailError);
-    return serverError(res, "Failed to send OTP email. Try again.");
+    const detail =
+      emailError instanceof Error ? emailError.message : "Unknown error";
+    return serverError(res, `Failed to send OTP email: ${detail}`);
   }
 
   return ok(res, "Otp send successfully");

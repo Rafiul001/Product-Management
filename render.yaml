@@ -48,11 +48,16 @@ services:
       - key: REFRESH_TOKEN_SECRET
         sync: false
 
-      # --- Email (Resend HTTPS API — Render blocks outbound SMTP, so Gmail/SMTP
-      # won't work here. Get a key at resend.com and verify a sending domain.) ---
-      - key: RESEND_API_KEY
+      # --- Email (Gmail API over HTTPS — Render blocks outbound SMTP, so plain
+      # Gmail/SMTP won't work. The Gmail API needs no domain; it sends from your
+      # own Gmail. Get a refresh token (scope gmail.send) via the OAuth Playground.) ---
+      - key: GMAIL_CLIENT_ID
         sync: false
-      # Verified sender, e.g. "E-commerce <noreply@yourdomain.com>"
+      - key: GMAIL_CLIENT_SECRET
+        sync: false
+      - key: GMAIL_REFRESH_TOKEN
+        sync: false
+      # Sender, e.g. "E-commerce <you@gmail.com>" (same account as the token)
       - key: EMAIL_FROM
         sync: false
 

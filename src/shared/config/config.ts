@@ -47,10 +47,13 @@ const CLIENT_URL = getEnv("CLIENT_URL");
 // File upload directory
 const UPLOAD_DIR = getEnv("UPLOAD_DIR");
 
-// Email (Resend HTTP API — works on hosts that block outbound SMTP, e.g. Render)
-const RESEND_API_KEY = getEnv("RESEND_API_KEY");
-// Verified sender, e.g. `"E-commerce <noreply@yourdomain.com>"`. Must be a domain
-// verified in Resend (or `onboarding@resend.dev` for testing to your own address).
+// Email (Gmail API over HTTPS — works on hosts that block outbound SMTP, e.g.
+// Render, and needs no verified domain: it sends from your own Gmail account).
+const GMAIL_CLIENT_ID = getEnv("GMAIL_CLIENT_ID");
+const GMAIL_CLIENT_SECRET = getEnv("GMAIL_CLIENT_SECRET");
+const GMAIL_REFRESH_TOKEN = getEnv("GMAIL_REFRESH_TOKEN");
+// The sender. Either the bare Gmail address or `"Name <you@gmail.com>"`.
+// Must be the same Gmail account the refresh token was issued for.
 const EMAIL_FROM = getEnv("EMAIL_FROM");
 
 // SSLCommerz credentials
@@ -75,7 +78,9 @@ const config = {
   ACCESS_TOKEN_MAX_AGE,
   REFRESH_TOKEN_MAX_AGE,
   OTP_EXPIRATION_TIME,
-  RESEND_API_KEY,
+  GMAIL_CLIENT_ID,
+  GMAIL_CLIENT_SECRET,
+  GMAIL_REFRESH_TOKEN,
   EMAIL_FROM,
   SSL_STORE_ID,
   SSL_STORE_PASSWORD,
