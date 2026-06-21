@@ -47,13 +47,14 @@ const CLIENT_URL = getEnv("CLIENT_URL");
 // File upload directory
 const UPLOAD_DIR = getEnv("UPLOAD_DIR");
 
-// Email (Gmail API over HTTPS — works on hosts that block outbound SMTP, e.g.
-// Render, and needs no verified domain: it sends from your own Gmail account).
-const GMAIL_CLIENT_ID = getEnv("GMAIL_CLIENT_ID");
-const GMAIL_CLIENT_SECRET = getEnv("GMAIL_CLIENT_SECRET");
-const GMAIL_REFRESH_TOKEN = getEnv("GMAIL_REFRESH_TOKEN");
-// The sender. Either the bare Gmail address or `"Name <you@gmail.com>"`.
-// Must be the same Gmail account the refresh token was issued for.
+// Email (SMTP via nodemailer).
+const SMTP_HOST = getEnv("SMTP_HOST");
+const SMTP_PORT = parseInt(getEnv("SMTP_PORT"), 10);
+// `true` for port 465 (implicit TLS), `false` for 587 (STARTTLS).
+const SMTP_SECURE = getEnv("SMTP_SECURE").toLowerCase() === "true";
+const SMTP_USER = getEnv("SMTP_USER");
+const SMTP_PASS = getEnv("SMTP_PASS");
+// The sender. Either the bare address or `"Name <you@example.com>"`.
 const EMAIL_FROM = getEnv("EMAIL_FROM");
 
 // SSLCommerz credentials
@@ -78,9 +79,11 @@ const config = {
   ACCESS_TOKEN_MAX_AGE,
   REFRESH_TOKEN_MAX_AGE,
   OTP_EXPIRATION_TIME,
-  GMAIL_CLIENT_ID,
-  GMAIL_CLIENT_SECRET,
-  GMAIL_REFRESH_TOKEN,
+  SMTP_HOST,
+  SMTP_PORT,
+  SMTP_SECURE,
+  SMTP_USER,
+  SMTP_PASS,
   EMAIL_FROM,
   SSL_STORE_ID,
   SSL_STORE_PASSWORD,
